@@ -1,19 +1,17 @@
 import { createConnection } from 'typeorm';
 
-
-
 export const databaseProviders = [
   {
     provide: 'DATABASE_CONNECTION',
     useFactory: async () =>
       await createConnection({
         type: 'mysql',
-        host: 'localhost',
-        port: 3306,
-        username: 'root',
-        password: 'root',
-        database: 'test',
-        entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+        host: process.env.DATABASE_HOST,
+        port: parseInt(process.env.DATABASE_PORT),
+        username: process.env.DATABASE_USER,
+        password: process.env.DATABASE_PASSWORD,
+        database: process.env.DATABASE_NAME,
+        entities: [__dirname + '/entities/**/*.entity{.ts,.js}'],
         synchronize: true,
       }),
   },

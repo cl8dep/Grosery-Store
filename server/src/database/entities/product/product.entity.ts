@@ -8,15 +8,14 @@ export class Product {
   @Column({ length: 500 })
   name: string;
 
-  @Column({ length: 500 })
   price: number;
 
   @Column()
   quantity: number;
 
-  @Column()
+  @Column({ type: 'datetime' })
   nextFill: string;
 
-  @Column()
+  @Column({ type: 'datetime' })
   lastFill: string;
 }
