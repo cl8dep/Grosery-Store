@@ -1,9 +1,10 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import Account from './account.entity';
-import { REPOSITORY_NAME } from './accountProvider';
+import Account, { AccountRole } from './account.entity';
+import { REPOSITORY_NAME } from './account.provider';
 import SignInDto from '../../../account/dto/sign-in.dto';
 import SignUpDto from '../../../account/dto/sign-up.dto';
+import AccountRoleDto from '../../../types/dto/account-role.dto';
 
 @Injectable()
 export class AccountService {
@@ -40,7 +41,44 @@ export class AccountService {
     return `This action updates a #${id} account`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} account`;
+  async remove(id: string): Promise<Account | boolean> {
+    const account = await this.accountRepository.findOne({
+      where: {
+        id,
+      },
+    });
+    if (account) {
+      return await this.accountRepository.remove(account);
+    }
+
+    return false;
+  }
+
+  async changeRole(id: string, role?: AccountRole): Promise<Account | boolean> {
+    const account = await this.accountRepository.findOne({
+      where: {
+        id: id,
+      },
+    });
+    if (account) {
+      account.role = role
+        ? role
+        : account.role === AccountRole.ADMIN
+        ? AccountRole.USER
+        : AccountRole.ADMIN;
+      return await this.accountRepository.save(account);
+    } else return false;
+  }
+
+  async getRole(id: string): Promise<AccountRole | false> {
+    const account = await this.accountRepository.findOne({
+      where: {
+        id,
+      },
+    });
+    if (account) {
+      return account.role;
+    }
+    return false;
   }
 }

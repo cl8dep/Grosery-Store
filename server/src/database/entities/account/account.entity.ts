@@ -2,9 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Order from '../order/order.entity';
+import Cart from '../cart/cart.entity';
 
 export enum AccountRole {
   USER,
@@ -12,7 +17,7 @@ export enum AccountRole {
 }
 
 @Entity({ name: 'accounts' })
-class Account {
+class Account implements IJwtAccountData {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -42,6 +47,23 @@ class Account {
 
   @CreateDateColumn()
   createDate: string;
+
+  @UpdateDateColumn()
+  updateDate: string;
+
+  @OneToMany<Order>(() => Order, (order) => order.account)
+  @JoinColumn()
+  orders: Order[];
+
+  @OneToOne(() => Cart)
+  @JoinColumn()
+  profile: Cart;
+}
+
+export interface IJwtAccountData {
+  id: string;
+  email: string;
+  role: AccountRole;
 }
 
 export default Account;
