@@ -1,10 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { QueryFailedError, Repository } from 'typeorm';
 import Account, { AccountRole } from './account.entity';
 import { REPOSITORY_NAME } from './account.provider';
-import SignInDto from '../../../account/dto/sign-in.dto';
-import SignUpDto from '../../../account/dto/sign-up.dto';
-import AccountRoleDto from '../../../types/dto/account-role.dto';
+import SignUpDto from '../../../types/dto/sign-up.dto';
+import Cart from '../cart/cart.entity';
 
 @Injectable()
 export class AccountService {
@@ -13,26 +12,40 @@ export class AccountService {
     private accountRepository: Repository<Account>,
   ) {}
 
-  async create(args: SignUpDto): Promise<Account> {
-    const entity = this.accountRepository.create({
-      firstName: args.firstName,
-      lastName: args.lastName,
-      address: args.address,
-      cellphone: args.cellphone,
-      password: args.password,
-      email: args.email,
-    });
-    return await this.accountRepository.save(entity);
+  async create(args: SignUpDto, cart: Cart): Promise<Account > {
+    try {
+      const entity = this.accountRepository.create({
+        firstName: args.firstName,
+        lastName: args.lastName,
+        address: args.address,
+        cellphone: args.cellphone,
+        password: args.password,
+        email: args.email,
+      });
+      entity.cart = cart;
+      return await this.accountRepository.save(entity);
+    } catch (e) {
+      let message;
+      if (e.code === "ER_DUP_ENTRY") message = "There is an account with the provided email";
+      throw new HttpException({
+        status: HttpStatus.CONFLICT,
+        message,
+      }, HttpStatus.CONFLICT);
+    }
   }
 
   findAll() {
     return `This action returns all account`;
   }
 
-  async findOne(args: SignInDto): Promise<Account> {
+  /**
+   * Find an account with the provided email associated
+   * @param email Email associated to the account
+   */
+  async findOne(email: string): Promise<Account> {
     return await this.accountRepository.findOne({
       where: {
-        email: args.email,
+        email: email,
       },
     });
   }
@@ -64,8 +77,8 @@ export class AccountService {
       account.role = role
         ? role
         : account.role === AccountRole.ADMIN
-        ? AccountRole.USER
-        : AccountRole.ADMIN;
+          ? AccountRole.USER
+          : AccountRole.ADMIN;
       return await this.accountRepository.save(account);
     } else return false;
   }
@@ -80,5 +93,25 @@ export class AccountService {
       return account.role;
     }
     return false;
+  }
+
+  async findOneById(id: string) {
+    return await this.accountRepository.findOne({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async addProductToCart(userId: string, product: any): Promise<Cart> {
+    const account = await this.findOneById(userId);
+
+
+
+    return account.cart;
+  }
+
+  async save(entity: Account): Promise<Account> {
+    return await this.accountRepository.save(entity);
   }
 }

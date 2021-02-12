@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-enum ProductUnit {
+export enum ProductUnit {
   Kg,
   Lb,
   Oz,
@@ -15,6 +15,7 @@ export class Product {
   @Column({ length: 500 })
   name: string;
 
+  @Column()
   price: number;
 
   @Column()
@@ -22,9 +23,6 @@ export class Product {
 
   @Column({ default: ProductUnit.Kg })
   unit: ProductUnit;
-
-  @Column({ type: 'datetime' })
-  nextFill: string;
 
   @Column({ type: 'datetime' })
   lastFill: string;

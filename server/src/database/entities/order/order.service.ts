@@ -2,8 +2,8 @@ import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import Order from './order.entity';
 import { REPOSITORY_NAME } from './order.provider';
-import SignInDto from '../../../account/dto/sign-in.dto';
-import SignUpDto from '../../../account/dto/sign-up.dto';
+import SignInDto from '../../../types/dto/sign-in.dto';
+import SignUpDto from '../../../types/dto/sign-up.dto';
 
 @Injectable()
 export default class OrderService {

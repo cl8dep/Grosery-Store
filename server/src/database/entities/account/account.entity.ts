@@ -51,13 +51,13 @@ class Account implements IJwtAccountData {
   @UpdateDateColumn()
   updateDate: string;
 
-  @OneToMany<Order>(() => Order, (order) => order.account)
+  @OneToMany<Order>(() => Order, (order) => order.account, {eager: true})
   @JoinColumn()
   orders: Order[];
 
-  @OneToOne(() => Cart)
+  @OneToOne(() => Cart, {cascade: true, onDelete: 'CASCADE', eager: true})
   @JoinColumn()
-  profile: Cart;
+  cart: Cart;
 }
 
 export interface IJwtAccountData {
