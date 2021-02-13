@@ -1,5 +1,5 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail, IsNotEmpty, IsOptional } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export default class SignUpDto {
   @IsNotEmpty()
@@ -20,10 +20,12 @@ export default class SignUpDto {
   email: string;
 
   @IsNotEmpty()
-  @ApiProperty()
-  cellphone: string;
+  @IsOptional()
+  @ApiPropertyOptional()
+  cellphone?: string;
 
   @IsNotEmpty()
-  @ApiProperty()
-  address: string;
+  @IsOptional()
+  @ApiPropertyOptional()
+  address?: string;
 }

@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { QueryFailedError, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import Account, { AccountRole } from './account.entity';
 import { REPOSITORY_NAME } from './account.provider';
 import SignUpDto from '../../../types/dto/sign-up.dto';
@@ -15,12 +15,7 @@ export class AccountService {
   async create(args: SignUpDto, cart: Cart): Promise<Account > {
     try {
       const entity = this.accountRepository.create({
-        firstName: args.firstName,
-        lastName: args.lastName,
-        address: args.address,
-        cellphone: args.cellphone,
-        password: args.password,
-        email: args.email,
+        ...args
       });
       entity.cart = cart;
       return await this.accountRepository.save(entity);

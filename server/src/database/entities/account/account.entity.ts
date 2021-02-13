@@ -33,10 +33,10 @@ class Account implements IJwtAccountData {
   @Column({ unique: true })
   email: string;
 
-  @Column()
+  @Column({default: ""})
   cellphone: string;
 
-  @Column()
+  @Column({default: ""})
   address: string;
 
   @Column({ default: AccountRole.USER })
