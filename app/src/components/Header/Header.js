@@ -16,8 +16,10 @@ import {
   Search as SearchIcon,
   Send as SendIcon,
   ArrowBack as ArrowBackIcon,
+  ShoppingCart as ShoppingCartIcon,
+  Payment as PaymentIcon
 } from "@material-ui/icons";
-import classNames from "classnames";
+import cn from "classnames";
 
 // styles
 import useStyles from "./styles";
@@ -27,7 +29,7 @@ import { Badge, Typography } from "../Wrappers/Wrappers";
 import Notification from "../Notification/Notification";
 import UserAvatar from "../UserAvatar/UserAvatar";
 
-const messages = [
+const cartItems = [
   {
     id: 0,
     variant: "warning",
@@ -81,16 +83,14 @@ const notifications = [
 ];
 
 export default function Header(props) {
-  var classes = useStyles();
+  const classes = useStyles();
 
-
-  // local
-  var [mailMenu, setMailMenu] = useState(null);
-  var [isMailsUnread, setIsMailsUnread] = useState(true);
-  var [notificationsMenu, setNotificationsMenu] = useState(null);
-  var [isNotificationsUnread, setIsNotificationsUnread] = useState(true);
-  var [profileMenu, setProfileMenu] = useState(null);
-  var [isSearchOpen, setSearchOpen] = useState(false);
+  const [mailMenu, setMailMenu] = useState(null);
+  const [isMailsUnread, setIsMailsUnread] = useState(true);
+  const [notificationsMenu, setNotificationsMenu] = useState(null);
+  const [isNotificationsUnread, setIsNotificationsUnread] = useState(true);
+  const [profileMenu, setProfileMenu] = useState(null);
+  const [isSearchOpen, setSearchOpen] = useState(false);
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -98,14 +98,14 @@ export default function Header(props) {
         <IconButton
           color="inherit"
           onClick={() => props.actions.toggleDrawer()}
-          className={classNames(
+          className={cn(
             classes.headerMenuButton,
             classes.headerMenuButtonCollapse,
           )}>
           {(props.isDrawerOpen) ? (
             <ArrowBackIcon
               classes={{
-                root: classNames(
+                root: cn(
                   classes.headerIcon,
                   classes.headerIconCollapse,
                 ),
@@ -114,7 +114,7 @@ export default function Header(props) {
           ) : (
             <MenuIcon
               classes={{
-                root: classNames(
+                root: cn(
                   classes.headerIcon,
                   classes.headerIconCollapse,
                 ),
@@ -127,11 +127,11 @@ export default function Header(props) {
         </Typography>
         <div className={classes.grow} />
         <div
-          className={classNames(classes.search, {
+          className={cn(classes.search, {
             [classes.searchFocused]: isSearchOpen,
           })}>
           <div
-            className={classNames(classes.searchIcon, {
+            className={cn(classes.searchIcon, {
               [classes.searchIconOpened]: isSearchOpen,
             })}
             onClick={() => setSearchOpen(!isSearchOpen)}>
@@ -150,6 +150,20 @@ export default function Header(props) {
           aria-haspopup="true"
           aria-controls="mail-menu"
           onClick={e => {
+            setMailMenu(e.currentTarget);
+            setIsMailsUnread(false);
+          }}
+          className={classes.headerMenuButton}>
+          <Badge badgeContent={cartItems.length}
+                 color="secondary">
+            <ShoppingCartIcon classes={{ root: classes.headerIcon }} />
+          </Badge>
+        </IconButton>
+        <IconButton
+          color="inherit"
+          aria-haspopup="true"
+          aria-controls="mail-menu"
+          onClick={e => {
             setNotificationsMenu(e.currentTarget);
             setIsNotificationsUnread(false);
           }}
@@ -158,21 +172,6 @@ export default function Header(props) {
             badgeContent={isNotificationsUnread ? notifications.length : null}
             color="warning">
             <NotificationsIcon classes={{ root: classes.headerIcon }} />
-          </Badge>
-        </IconButton>
-        <IconButton
-          color="inherit"
-          aria-haspopup="true"
-          aria-controls="mail-menu"
-          onClick={e => {
-            setMailMenu(e.currentTarget);
-            setIsMailsUnread(false);
-          }}
-          className={classes.headerMenuButton}>
-          <Badge
-            badgeContent={isMailsUnread ? messages.length : null}
-            color="secondary">
-            <MailIcon classes={{ root: classes.headerIcon }} />
           </Badge>
         </IconButton>
         <IconButton
@@ -191,21 +190,19 @@ export default function Header(props) {
           MenuListProps={{ className: classes.headerMenuList }}
           className={classes.headerMenu}
           classes={{ paper: classes.profileMenu }}
-          disableAutoFocusItem
-        >
+          disableAutoFocusItem>
           <div className={classes.profileMenuUser}>
             <Typography variant="h4" weight="medium">
-              New Messages
+              Carrito de productos
             </Typography>
             <Typography
               className={classes.profileMenuLink}
               component="a"
-              color="secondary"
-            >
-              {messages.length} New Messages
+              color="secondary">
+              {cartItems.length} productos agregados
             </Typography>
           </div>
-          {messages.map(message => (
+          {cartItems.map(message => (
             <MenuItem key={message.id} className={classes.messageNotification}>
               <div className={classes.messageNotificationSide}>
                 <UserAvatar color={message.variant} name={message.name} />
@@ -213,12 +210,10 @@ export default function Header(props) {
                   {message.time}
                 </Typography>
               </div>
-              <div
-                className={classNames(
-                  classes.messageNotificationSide,
-                  classes.messageNotificationBodySide,
-                )}
-              >
+              <div className={cn(
+                classes.messageNotificationSide,
+                classes.messageNotificationBodySide,
+              )}>
                 <Typography weight="medium" gutterBottom>
                   {message.name}
                 </Typography>
@@ -228,86 +223,54 @@ export default function Header(props) {
               </div>
             </MenuItem>
           ))}
-          <Fab
-            variant="extended"
-            color="primary"
-            aria-label="Add"
-            className={classes.sendMessageButton}
-          >
-            Send New Message
-            <SendIcon className={classes.sendButtonIcon} />
+          <Fab variant="extended"
+               color="primary"
+               aria-label="Add"
+               className={classes.sendMessageButton}>
+            Ordenar
+            <ShoppingCartIcon className={classes.sendButtonIcon} />
           </Fab>
         </Menu>
-        <Menu
-          id="notifications-menu"
-          open={Boolean(notificationsMenu)}
-          anchorEl={notificationsMenu}
-          onClose={() => setNotificationsMenu(null)}
-          className={classes.headerMenu}
-          disableAutoFocusItem
-        >
+        <Menu id="notifications-menu"
+              open={Boolean(notificationsMenu)}
+              anchorEl={notificationsMenu}
+              onClose={() => setNotificationsMenu(null)}
+              className={classes.headerMenu}
+              disableAutoFocusItem>
           {notifications.map(notification => (
-            <MenuItem
-              key={notification.id}
-              onClick={() => setNotificationsMenu(null)}
-              className={classes.headerMenuItem}
-            >
+            <MenuItem key={notification.id}
+                      onClick={() => setNotificationsMenu(null)}
+                      className={classes.headerMenuItem}>
               <Notification {...notification} typographyVariant="inherit" />
             </MenuItem>
           ))}
         </Menu>
-        <Menu
-          id="profile-menu"
-          open={Boolean(profileMenu)}
-          anchorEl={profileMenu}
-          onClose={() => setProfileMenu(null)}
-          className={classes.headerMenu}
-          classes={{ paper: classes.profileMenu }}
-          disableAutoFocusItem
-        >
+        <Menu id="profile-menu"
+              open={Boolean(profileMenu)}
+              anchorEl={profileMenu}
+              onClose={() => setProfileMenu(null)}
+              className={classes.headerMenu}
+              classes={{ paper: classes.profileMenu }}
+              disableAutoFocusItem>
           <div className={classes.profileMenuUser}>
-            <Typography variant="h4" weight="medium">
-              John Smith
+            <Typography variant="h4" weight="medium" align="center">
+              {props.account?.firstName}
             </Typography>
-            <Typography
-              className={classes.profileMenuLink}
-              component="a"
-              color="primary"
-              href="https://flatlogic.com"
-            >
-              Flalogic.com
+            <Typography className={classes.profileMenuLink}
+                        color="primary"
+                        align="center">
+              {props.account?.email}
             </Typography>
           </div>
-          <MenuItem
-            className={classNames(
-              classes.profileMenuItem,
-              classes.headerMenuItem,
-            )}
-          >
-            <AccountIcon className={classes.profileMenuIcon} /> Profile
-          </MenuItem>
-          <MenuItem
-            className={classNames(
-              classes.profileMenuItem,
-              classes.headerMenuItem,
-            )}
-          >
-            <AccountIcon className={classes.profileMenuIcon} /> Tasks
-          </MenuItem>
-          <MenuItem
-            className={classNames(
-              classes.profileMenuItem,
-              classes.headerMenuItem,
-            )}
-          >
-            <AccountIcon className={classes.profileMenuIcon} /> Messages
+          <MenuItem className={cn(classes.profileMenuItem, classes.headerMenuItem,)}>
+            <AccountIcon className={classes.profileMenuIcon} />
+            Mi Cuenta
           </MenuItem>
           <div className={classes.profileMenuUser}>
-            <Typography
-              className={classes.profileMenuLink}
-              color="primary"
-              onClick={() => {}}>
-              Sign Out
+            <Typography className={classes.profileMenuLink}
+                        color="primary" align="center"
+                        onClick={() => props.actions.signOut()}>
+              Salir
             </Typography>
           </div>
         </Menu>

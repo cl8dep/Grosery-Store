@@ -1,5 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router';
+import { isAuthenticated } from '../redux/auth/auth.selectors';
+import { connect } from 'react-redux';
 
 function PrivateRoute({ component, isAuthenticated, ...rest }) {
   return (
@@ -23,4 +25,8 @@ function PrivateRoute({ component, isAuthenticated, ...rest }) {
   );
 }
 
-export default PrivateRoute;
+const mapStateToProps = state => ({
+  isAuthenticated: isAuthenticated(state)
+});
+
+export default connect(mapStateToProps)(PrivateRoute);

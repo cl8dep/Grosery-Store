@@ -8,8 +8,8 @@ import PublicRoute from './apis/routes/PublicRoute';
 import Layout from "./components/Layout";
 
 import Error from "./pages/error";
-import SignIn from './pages/sign-in/SignIn';
-import SignUp from './pages/sign-up/SignUp';
+import SignIn from './pages/sign-in';
+import SignUp from './pages/sign-up';
 import theme from './themes'
 import { Provider } from 'react-redux';
 import store from './apis/redux';

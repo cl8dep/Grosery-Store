@@ -52,7 +52,7 @@ class AccountController {
         account: {
           firstName: account.firstName,
           lastName: account.lastName,
-          email: account.lastName,
+          email: account.email,
           role: account.role,
           isActive: account.isActive,
           cellphone: account.cellphone,

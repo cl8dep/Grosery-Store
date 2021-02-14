@@ -1,8 +1,10 @@
 import {combineReducers, createStore} from 'redux';
 import layoutReducer from "./layout/layout.reducer";
+import authReducer from './auth/auth.reducer';
 
 const reducer =  combineReducers({
     layout: layoutReducer,
+    auth: authReducer,
 });
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

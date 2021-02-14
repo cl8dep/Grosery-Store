@@ -22,4 +22,6 @@ function useServerManager() {
   return context;
 }
 
+export default ServerManagerProvider;
+
 export { ServerManagerProvider, useServerManager };

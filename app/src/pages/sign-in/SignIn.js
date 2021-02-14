@@ -6,21 +6,45 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
-import { withRouter } from "react-router-dom";
-import classnames from "classnames";
 
 import useStyles from "./styles";
 
 import logo from "./logo.svg";
 import google from "../../images/google.svg";
+import { useServerManager } from '../../components/AxiosProvider';
 
 function SignIn(props) {
   const classes = useStyles();
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [emailValue, setEmailValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const serverManager = useServerManager();
+
+  const performRequest = () => {
+    setIsLoading(true);
+    serverManager
+      .signIn({
+        email,
+        password
+      })
+      .then(response => {
+        const {data} = response;
+        if (data) {
+          props.actions.setAuthData(data);
+          serverManager.refreshInstance();
+          props.history.push("/app")
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      })
+  };
 
   return (
     <Grid container className={classes.container}>
@@ -50,8 +74,8 @@ function SignIn(props) {
                 input: classes.textField,
               },
             }}
-            value={emailValue}
-            onChange={e => setEmailValue(e.target.value)}
+            value={email}
+            onChange={e => setEmail(e.target.value)}
             margin="normal"
             placeholder="Email Address"
             type="email"
@@ -64,8 +88,8 @@ function SignIn(props) {
                 input: classes.textField,
               },
             }}
-            value={passwordValue}
-            onChange={e => setPasswordValue(e.target.value)}
+            value={password}
+            onChange={e => setPassword(e.target.value)}
             margin="normal"
             placeholder="Password"
             type="password"
@@ -75,9 +99,9 @@ function SignIn(props) {
             {isLoading ? (
               <CircularProgress size={26} className={classes.loginLoader} />
             ) : (
-              <Button
+              <Button onClick={() => performRequest()}
                 disabled={
-                  emailValue.length === 0 || passwordValue.length === 0
+                  email.length === 0 || password.length === 0
                 }
                 variant="contained"
                 color="primary"
@@ -93,12 +117,9 @@ function SignIn(props) {
             </Button>
           </div>
         </div>
-        <Typography color="primary" className={classes.copyright}>
-          © 2014-2021 Groceries Store Inc. All rights reserved.
-        </Typography>
       </div>
     </Grid>
   );
 }
 
-export default withRouter(SignIn);
+export default SignIn;

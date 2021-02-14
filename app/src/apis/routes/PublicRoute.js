@@ -1,5 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router';
+import { isAuthenticated } from '../redux/auth/auth.selectors';
+import { connect } from 'react-redux';
 
 function PublicRoute({ component, isAuthenticated, ...rest }) {
   return (
@@ -20,4 +22,8 @@ function PublicRoute({ component, isAuthenticated, ...rest }) {
   );
 }
 
-export default PublicRoute;
+const mapStateToProps = state => ({
+  isAuthenticated: isAuthenticated(state)
+});
+
+export default connect(mapStateToProps)(PublicRoute);
