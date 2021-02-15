@@ -16,7 +16,7 @@ import useStyles from "./styles";
 
 import logo from "./logo.svg";
 import google from "../../images/google.svg";
-import { useServerManager } from '../../components/AxiosProvider/ServerManagerProvider';
+import { useServerManager } from '../../components/ServerManagerProvider/ServerManagerProvider';
 
 function SignUp(props) {
   const classes = useStyles();
@@ -53,6 +53,7 @@ function SignUp(props) {
   return (
     <Grid container className={classes.container}>
       <div className={classes.logotypeContainer}>
+        <div className={classes.backDrop}/>
         <img src={logo} alt="logo" className={classes.logotypeImage} />
         <Typography className={classes.logotypeText}>Groceries Store</Typography>
       </div>

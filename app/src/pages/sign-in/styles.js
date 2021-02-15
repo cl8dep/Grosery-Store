@@ -12,7 +12,9 @@ export default makeStyles(theme => ({
     left: 0,
   },
   logotypeContainer: {
-    backgroundColor: theme.palette.primary.main,
+    backgroundImage: 'url(/img/shopping-cart-wallpaper.jpg)',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
     width: "60%",
     height: "100%",
     display: "flex",
@@ -26,14 +28,23 @@ export default makeStyles(theme => ({
       display: "none",
     },
   },
+  backDrop: {
+    position: 'absolute',
+    opacity: '0.9',
+    width: "60%",
+    height: "100%",
+    backdropFilter: 'blur(30px)',
+  },
   logotypeImage: {
     width: 165,
     marginBottom: theme.spacing(4),
+    zIndex: 9999,
   },
   logotypeText: {
     color: "white",
     fontWeight: 500,
     fontSize: 84,
+    zIndex: 9999,
     [theme.breakpoints.down("md")]: {
       fontSize: 48,
     },

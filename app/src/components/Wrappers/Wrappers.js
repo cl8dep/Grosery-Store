@@ -29,12 +29,10 @@ function Badge({ children, colorBrightness, color, ...props }) {
   return (
     <Styled>
       {styledProps => (
-        <BadgeBase
-          classes={{
+        <BadgeBase classes={{
             badge: classnames(classes.badge, styledProps.classes.badge),
           }}
-          {...props}
-        >
+          {...props}>
           {children}
         </BadgeBase>
       )}

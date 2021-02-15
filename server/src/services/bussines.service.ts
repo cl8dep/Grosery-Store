@@ -24,7 +24,7 @@ class BusinessService {
     return await this.accountService.create(args, cartEntity);
   }
 
-  async addProductToCart(userId: string, args: AddProductToCartDto): Promise<Cart> {
+  async addProductToCart(userId: string, args: AddProductToCartDto): Promise<any> {
     const account = await this.accountService.findOneById(userId);
     let products = [];
     if (account.cart.products)
@@ -46,7 +46,11 @@ class BusinessService {
     account.cart.products = products;
 
     await this.accountService.save(account);
-    return account.cart;
+    const subtotal = this.computeCartSubtotal(account.cart.products);
+    return {
+      subtotal,
+      products: account.cart.products,
+    };
   }
 
   async removeProductFromCart(id: string, args: RemoveProductFromCart) {
@@ -70,6 +74,23 @@ class BusinessService {
     }
     account.cart.products = [];
     await this.accountService.save(account);
+  }
+
+  async getCartProducts(id: string) {
+    const account = await this.accountService.findOneById(id);
+    const subtotal = this.computeCartSubtotal(account.cart.products);
+    return {
+      subtotal,
+      products: account.cart.products
+    }
+  }
+
+  computeCartSubtotal(products) {
+    let subtotal = 0;
+    products.forEach(function(item) {
+      subtotal += (item.quantity * item.product.price)
+    });
+    return subtotal
   }
 }
 

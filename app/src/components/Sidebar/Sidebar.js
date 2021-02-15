@@ -41,19 +41,20 @@ function Sidebar({ location, isDrawerOpen, actions }) {
   });
 
   return (
-    <Drawer
-      variant={isPermanent ? "permanent" : "temporary"}
-      className={classNames(classes.drawer, {
-        [classes.drawerOpen]: isDrawerOpen,
-        [classes.drawerClose]: !isDrawerOpen,
-      })}
-      classes={{
-        paper: classNames({
-          [classes.drawerOpen]: isDrawerOpen,
-          [classes.drawerClose]: !isDrawerOpen,
-        }),
-      }}
-      open={isDrawerOpen}>
+    <Drawer variant={isPermanent ? "permanent" : "temporary"}
+            className={classNames(classes.drawer, {
+              [classes.drawerOpen]: isDrawerOpen,
+              [classes.drawerClose]: !isDrawerOpen,
+            })}
+            classes={{
+              paper: classNames({
+                [classes.drawerOpen]: isDrawerOpen,
+                [classes.drawerClose]: !isDrawerOpen,
+              }),
+            }}
+            open={isDrawerOpen}
+            disableBackdropClick={false}
+            onBackdropClick={() => actions.toggleDrawer()}>
       <div className={classes.toolbar} />
       <div className={classes.mobileBackButton}>
         <IconButton onClick={() => actions.toggleDrawer()}>

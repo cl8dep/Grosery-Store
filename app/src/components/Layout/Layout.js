@@ -16,6 +16,7 @@ import Dashboard from "../../pages/dashboard";
 import Typography from "../../pages/typography";
 import Tables from "../../pages/tables";
 import Charts from "../../pages/charts";
+import Products from '../../pages/products';
 
 function Layout(props) {
   const classes = useStyles();
@@ -32,6 +33,7 @@ function Layout(props) {
             <div className={classes.fakeToolbar} />
             <Switch>
               <Route path="/app/dashboard" component={Dashboard} />
+              <Route path="/app/products" component={Products} />
               <Route path="/app/typography" component={Typography} />
               <Route path="/app/tables" component={Tables} />
 

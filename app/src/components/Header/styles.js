@@ -129,21 +129,21 @@ export default makeStyles(theme => ({
       cursor: "pointer",
     },
   },
-  messageNotification: {
+  cartItem: {
     height: "auto",
     display: "flex",
     alignItems: "center",
+    borderBottom: '1px solid #bdbdbd4f',
     "&:hover, &:focus": {
       backgroundColor: theme.palette.background.light,
     },
   },
-  messageNotificationSide: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    marginRight: theme.spacing(2),
+  cartItemBody: {
+    display: 'flex',
+    width: '100%',
+    justifyContent: 'space-between',
   },
-  messageNotificationBodySide: {
+  cartItemDetails: {
     alignItems: "flex-start",
     marginRight: 0,
   },

@@ -25,6 +25,9 @@
     "tinycolor2": "^1.4.2",
     "universal-cookie": "^4.0.4"
   },
+  "devDependencies": {
+    "typescript": "^4.1.5"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

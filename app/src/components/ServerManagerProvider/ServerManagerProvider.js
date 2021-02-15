@@ -22,6 +22,16 @@ function useServerManager() {
   return context;
 }
 
+function withServerManager(WrappedComponent) {
+   return class ServerManager extends React.Component {
+    static contextType = AxiosProviderStateContext;
+
+    render() {
+      return <WrappedComponent serverManager={this.context} {...this.props}/>
+    }
+  }
+}
+
 export default ServerManagerProvider;
 
-export { ServerManagerProvider, useServerManager };
+export { ServerManagerProvider, useServerManager, withServerManager };

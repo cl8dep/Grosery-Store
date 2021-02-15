@@ -1,6 +1,6 @@
 import AuthActionTypes from './auth.types';
 import {loadAuthState} from "../../cookies";
-import { saveAuthState } from '../../cookies/authStoreFromCookies';
+import { clearAuthState, saveAuthState } from '../../cookies/authStoreFromCookies';
 //import { clearAuthState } from '../../cookies/authStoreFromCookies';
 //import {clearAuthState} from "../../cookies/authStoreFromCookies";
 
@@ -23,7 +23,7 @@ const authReducer = (state = INITIAL_STATE, action) => {
             };
 
         case AuthActionTypes.SIGN_OUT:
-            //clearAuthState();
+            clearAuthState();
             return {
                 ...state,
                 auth: null,

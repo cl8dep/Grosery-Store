@@ -21,11 +21,10 @@ export default function Widget({
   header,
   ...props
 }) {
-  var classes = useStyles();
+  const classes = useStyles();
 
-  // local
-  var [moreButtonRef, setMoreButtonRef] = useState(null);
-  var [isMoreMenuOpen, setMoreMenuOpen] = useState(false);
+  const [moreButtonRef, setMoreButtonRef] = useState(null);
+  const [isMoreMenuOpen, setMoreMenuOpen] = useState(false);
 
   return (
     <div className={classes.widgetWrapper}>
@@ -53,12 +52,10 @@ export default function Widget({
             </React.Fragment>
           )}
         </div>
-        <div
-          className={classnames(classes.widgetBody, {
+        <div className={classnames(classes.widgetBody, {
             [classes.noPadding]: noBodyPadding,
             [bodyClass]: bodyClass,
-          })}
-        >
+          })}>
           {children}
         </div>
       </Paper>
@@ -67,8 +64,7 @@ export default function Widget({
         open={isMoreMenuOpen}
         anchorEl={moreButtonRef}
         onClose={() => setMoreMenuOpen(false)}
-        disableAutoFocusItem
-      >
+        disableAutoFocusItem>
         <MenuItem>
           <Typography>Edit</Typography>
         </MenuItem>

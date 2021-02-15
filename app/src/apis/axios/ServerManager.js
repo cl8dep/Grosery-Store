@@ -23,6 +23,21 @@ class ServerManager {
   async signIn(args) {
     return await this.axios.post("account/sign-in", args)
   }
+
+  async getAllProducts(args) {
+    return await this.axios.get("products", args)
+  }
+
+  async addProductToCart(id, quantity) {
+    return await this.axios.post("/cart/add-product", {
+      id,
+      quantity
+    })
+  }
+
+  async getCartProducts() {
+    return await this.axios.get("/cart")
+  }
 }
 
 export default ServerManager;

@@ -1,14 +1,10 @@
 import React from "react";
 import { Button } from "@material-ui/core";
-
-// styles
+import { Typography } from "../Wrappers";
 import useStyles from "./styles";
 
-// components
-import { Typography } from "../Wrappers";
-
 export default function PageTitle(props) {
-  var classes = useStyles();
+  const classes = useStyles();
 
   return (
     <div className={classes.pageTitleContainer}>
@@ -16,12 +12,10 @@ export default function PageTitle(props) {
         {props.title}
       </Typography>
       {props.button && (
-        <Button
-          classes={{ root: classes.button }}
-          variant="contained"
-          size="large"
-          color="secondary"
-        >
+        <Button classes={{ root: classes.button }}
+                variant="contained"
+                size="large"
+                color="secondary">
           {props.button}
         </Button>
       )}

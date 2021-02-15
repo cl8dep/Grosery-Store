@@ -24,6 +24,13 @@ class CartController {
   constructor(private readonly businessService: BusinessService) {}
 
   @UseGuards(JwtAuthGuard)
+  @Get()
+  async getCartProducts(@User() user: IUser, @Res() res: Response) {
+    const products = await this.businessService.getCartProducts(user.id);
+    res.status(200).json(products)
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Post("clear")
   async clear(@Body() body: AddProductToCartDto, @User() user: IUser, @Res() res: Response) {
     await this.businessService.clearCart(user.id);
