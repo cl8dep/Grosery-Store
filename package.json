@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "yarn --cwd ~/server run start:prod"
+    "start": "cd server/dist && node main.js"
   },
   "engines": {
     "node": ">=12.0"
