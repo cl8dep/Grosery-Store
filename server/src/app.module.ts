@@ -4,6 +4,7 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { DatabaseModule } from './database/database.module';
 import { AccountModule } from './database/entities/account/account.module';
 import { AuthModule } from './auth/auth.module';
@@ -14,9 +15,13 @@ import ProductsController from './controllers/products.controller';
 import ProductModule from './database/entities/product/product.module';
 import CartController from './controllers/cart.controller';
 import ProductCartModule from './database/entities/product-cart/product-cart.module';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'),
+    }),
     DatabaseModule,
     AuthModule,
     ServicesModule,
