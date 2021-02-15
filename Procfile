@@ -1,1 +1,1 @@
-web: yarn --cwd ~/server run start:prod
+web: yarn start
