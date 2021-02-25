@@ -5,7 +5,7 @@ import styles from './styles';
 import { withServerManager } from '../../components/ServerManagerProvider/ServerManagerProvider';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { setCartProducts } from '../../apis/redux/cart/cart.actions';
+import { setCartData, setCartProducts } from '../../apis/redux/cart/cart.actions';
 
 const mapStateToProps = state => ({
 
@@ -13,7 +13,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
-    setCartProducts
+    setCartProducts,
+    setCartData
   }, dispatch)
 });
 

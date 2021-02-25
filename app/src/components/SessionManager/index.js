@@ -5,6 +5,11 @@ import { compose } from 'recompose';
 import SessionManager from './SessionManager';
 import { withServerManager } from '../ServerManagerProvider/ServerManagerProvider';
 import { setCartData, setCartProducts } from '../../apis/redux/cart/cart.actions';
+import { selectAccountData } from '../../apis/redux/auth/auth.selectors';
+
+const mapStateToProps = state => ({
+  auth: selectAccountData(state)
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
@@ -15,5 +20,5 @@ const mapDispatchToProps = dispatch => ({
 
 export default compose(
   withServerManager,
-  connect(null, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps)
 )(SessionManager);

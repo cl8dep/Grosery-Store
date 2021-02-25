@@ -17,6 +17,8 @@ import Typography from "../../pages/typography";
 import Tables from "../../pages/tables";
 import Charts from "../../pages/charts";
 import Products from '../../pages/products';
+import Account2 from '../../pages/account';
+import CheckOut from '../../pages/check-out';
 
 function Layout(props) {
   const classes = useStyles();
@@ -34,16 +36,9 @@ function Layout(props) {
             <Switch>
               <Route path="/app/dashboard" component={Dashboard} />
               <Route path="/app/products" component={Products} />
-              <Route path="/app/typography" component={Typography} />
-              <Route path="/app/tables" component={Tables} />
+              <Route path="/app/checkout" component={CheckOut} />
 
-              <Route
-                exact
-                path="/app/ui"
-                render={() => <Redirect to="/app/ui/icons" />}
-              />
-
-              <Route path="/app/ui/charts" component={Charts} />
+              <Route path="/app/me" component={Account2} />
             </Switch>
           </div>
         </>

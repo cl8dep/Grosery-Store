@@ -19,9 +19,10 @@ import cn from "classnames";
 // styles
 import useStyles from "./styles";
 
-import { Badge, Typography } from "../Wrappers/Wrappers";
+import { Badge, Typography } from "../Wrappers";
 import Notification from "../Notification/Notification";
 import CartMenu from './components/CartMenu';
+import AccountMenu from './components/AccountMenu';
 
 const notifications = [
   { id: 0, color: "warning", message: "Check out this awesome ticket" },
@@ -116,20 +117,12 @@ export default function Header(props) {
             setIsNotificationsUnread(false);
           }}
           className={classes.headerMenuButton}>
-          <Badge
-            badgeContent={isNotificationsUnread ? notifications.length : null}
-            color="warning">
+          <Badge content={isNotificationsUnread ? notifications.length : null}>
             <NotificationsIcon classes={{ root: classes.headerIcon }} />
           </Badge>
         </IconButton>
-        <IconButton
-          aria-haspopup="true"
-          color="inherit"
-          className={classes.headerMenuButton}
-          aria-controls="profile-menu"
-          onClick={e => setProfileMenu(e.currentTarget)}>
-          <AccountIcon classes={{ root: classes.headerIcon }} />
-        </IconButton>
+
+        <AccountMenu/>
 
         <Menu id="notifications-menu"
               open={Boolean(notificationsMenu)}
@@ -145,35 +138,7 @@ export default function Header(props) {
             </MenuItem>
           ))}
         </Menu>
-        <Menu id="profile-menu"
-              open={Boolean(profileMenu)}
-              anchorEl={profileMenu}
-              onClose={() => setProfileMenu(null)}
-              className={classes.headerMenu}
-              classes={{ paper: classes.profileMenu }}
-              disableAutoFocusItem>
-          <div className={classes.profileMenuUser}>
-            <Typography variant="h4" weight="medium" align="center">
-              {props.account?.firstName}
-            </Typography>
-            <Typography className={classes.profileMenuLink}
-                        color="primary"
-                        align="center">
-              {props.account?.email}
-            </Typography>
-          </div>
-          <MenuItem className={cn(classes.profileMenuItem, classes.headerMenuItem,)}>
-            <AccountIcon className={classes.profileMenuIcon} />
-            Mi Cuenta
-          </MenuItem>
-          <div className={classes.profileMenuUser}>
-            <Typography className={classes.profileMenuLink}
-                        color="primary" align="center"
-                        onClick={() => props.actions.signOut()}>
-              Salir
-            </Typography>
-          </div>
-        </Menu>
+
       </Toolbar>
     </AppBar>
   );

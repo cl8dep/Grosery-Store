@@ -15,13 +15,16 @@ import SignUp from './pages/sign-up';
 import theme from './themes'
 import { Provider } from 'react-redux';
 import store from './apis/redux';
-
+import AuthRoute from './apis/routes/AuthRoute';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 export default function App() {
 
   return (
     <Provider store={store}>
+      <ToastContainer/>
       <ServerManagerProvider>
         <SessionManager>
           <ThemeProvider theme={theme}>
@@ -34,9 +37,9 @@ export default function App() {
                   path="/app"
                   render={() => <Redirect to="/app/dashboard" />}
                 />
-                <PrivateRoute path="/app" component={Layout} isAuthenticated={true} />
-                <PublicRoute path="/sign-in" component={SignIn} />
-                <PublicRoute path="/sign-up" component={SignUp} />
+                <PrivateRoute path="/app" component={Layout} />
+                <AuthRoute path="/sign-in" component={SignIn} />
+                <AuthRoute path="/sign-up" component={SignUp} />
                 <Route component={Error} />
               </Switch>
             </BrowserRouter>

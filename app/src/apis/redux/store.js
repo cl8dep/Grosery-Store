@@ -2,6 +2,7 @@ import {combineReducers, createStore} from 'redux';
 import layoutReducer from "./layout/layout.reducer";
 import authReducer from './auth/auth.reducer';
 import cartReducer from './cart/cart.reducer';
+import { signOut } from './auth/auth.actions';
 
 const reducer =  combineReducers({
     layout: layoutReducer,
@@ -10,6 +11,10 @@ const reducer =  combineReducers({
 });
 
 const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+window.clearAuthData = function() {
+    store.dispatch(signOut())
+};
 
 const getBearerToken = () => {
     const { auth } = store.getState();

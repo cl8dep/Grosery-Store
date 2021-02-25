@@ -77,7 +77,7 @@ export default makeStyles(theme => ({
   },
   googleButton: {
     marginTop: theme.spacing(6),
-    boxShadow: theme.customShadows.widget,
+    boxShadow: theme.shadows[1],
     backgroundColor: "white",
     width: "100%",
     textTransform: "none",

@@ -21,6 +21,7 @@ const cartReducer = (state = INITIAL_STATE, action) => {
                 products: action.data
             };
         case ActionTypes.SET_CART_DATA:
+            console.log(action.data)
             return {
                 ...state,
                 ...action.data

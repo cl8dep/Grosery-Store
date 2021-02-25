@@ -93,9 +93,9 @@ function SignIn(props) {
             onChange={e => setPassword(e.target.value)}
             margin="normal"
             placeholder="Password"
+            autoComplete="current-password"
             type="password"
-            fullWidth
-          />
+            fullWidth/>
           <div className={classes.formButtons}>
             {isLoading ? (
               <CircularProgress size={26} className={classes.loginLoader} />

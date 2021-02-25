@@ -11,10 +11,10 @@ export default makeStyles(theme => ({
     color: theme.palette.text.hint,
   },
   button: {
-    boxShadow: theme.customShadows.widget,
+    boxShadow: theme.shadows[2],
     textTransform: "none",
     "&:active": {
-      boxShadow: theme.customShadows.widgetWide,
+      boxShadow: theme.shadows[3],
     },
   },
 }));

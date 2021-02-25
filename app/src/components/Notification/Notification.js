@@ -16,14 +16,11 @@ import {
   Publish as UploadIcon,
 } from "@material-ui/icons";
 import { useTheme } from "@material-ui/styles";
-import classnames from "classnames";
-import tinycolor from "tinycolor2";
+import cn from "classnames";
+import tinyColor from "tinycolor2";
 
-// styles
-import useStyles from "./styles";
-
-// components
 import { Typography } from "../Wrappers";
+import useStyles from "./styles";
 
 const typesIcons = {
   "e-commerce": <ShoppingCartIcon />,
@@ -42,8 +39,8 @@ const typesIcons = {
 };
 
 export default function Notification({ variant, ...props }) {
-  var classes = useStyles();
-  var theme = useTheme();
+  const classes = useStyles();
+  const theme = useTheme();
 
   const icon = getIconByType(props.type);
   const iconWithStyles = React.cloneElement(icon, {
@@ -59,8 +56,7 @@ export default function Notification({ variant, ...props }) {
   });
 
   return (
-    <div
-      className={classnames(classes.notificationContainer, props.className, {
+    <div className={cn(classes.notificationContainer, props.className, {
         [classes.notificationContained]: variant === "contained",
         [classes.notificationContainedShadowless]: props.shadowless,
       })}
@@ -69,10 +65,8 @@ export default function Notification({ variant, ...props }) {
           variant === "contained" &&
           theme.palette[props.color] &&
           theme.palette[props.color].main,
-      }}
-    >
-      <div
-        className={classnames(classes.notificationIconContainer, {
+      }}>
+      <div className={cn(classes.notificationIconContainer, {
           [classes.notificationIconContainerContained]: variant === "contained",
           [classes.notificationIconContainerRounded]: variant === "rounded",
         })}
@@ -80,29 +74,24 @@ export default function Notification({ variant, ...props }) {
           backgroundColor:
             variant === "rounded" &&
             theme.palette[props.color] &&
-            tinycolor(theme.palette[props.color].main)
+            tinyColor(theme.palette[props.color].main)
               .setAlpha(0.15)
               .toRgbString(),
-        }}
-      >
+        }}>
         {iconWithStyles}
       </div>
       <div className={classes.messageContainer}>
-        <Typography
-          className={classnames({
+        <Typography className={cn({
             [classes.containedTypography]: variant === "contained",
           })}
           variant={props.typographyVariant}
-          size={variant !== "contained" && !props.typographyVariant && "md"}
-        >
+          size={variant !== "contained" && !props.typographyVariant && "md"}>
           {props.message}
         </Typography>
         {props.extraButton && props.extraButtonClick && (
-          <Button
-            onClick={props.extraButtonClick}
+          <Button onClick={props.extraButtonClick}
             disableRipple
-            className={classes.extraButton}
-          >
+            className={classes.extraButton}>
             {props.extraButton}
           </Button>
         )}

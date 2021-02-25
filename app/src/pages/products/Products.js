@@ -20,6 +20,7 @@ import Button from '@material-ui/core/Button';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
 import { setCartProducts } from '../../apis/redux/cart/cart.actions';
+import sendToastNotification from '../../components/Notification/Utils';
 
 
 export default class Products extends React.Component {
@@ -48,7 +49,9 @@ export default class Products extends React.Component {
     this.props.serverManager.addProductToCart(selectedProduct.id, selectedProductQuantity)
       .then(r => {
         const {data} = r;
-        this.props.actions.setCartProducts(data.products);
+        const {products, ...rest} = data;
+        this.props.actions.setCartProducts(products);
+        this.props.actions.setCartData({...rest});
       })
       .finally(() => {
         this.setState({isQuantityDialogOpen: false, selectedProduct: null, selectedProductQuantity: 1})
@@ -114,7 +117,7 @@ export default class Products extends React.Component {
                           <TableCell>{item.price} CUP / {ProductUnit[item.unit]}</TableCell>
                           <TableCell>{item.quantity} {ProductUnit[item.unit]}</TableCell>
                           <TableCell align="right">
-                            <IconButton onClick={this.showQuantityDialog.bind(this, item)}
+                            <IconButton onClick={() => sendToastNotification()/*this.showQuantityDialog.bind(this, item)*/}
                                         size="small"
                                         className="px-2"
                                         variant="contained">

@@ -105,7 +105,7 @@ class CartMenu extends React.Component {
                     aria-controls="mail-menu"
                     onClick={e => this.setState({menu: e.currentTarget})}
                     className={classes.headerMenuButton}>
-          <Badge badgeContent={cartProducts && cartProducts.length}
+          <Badge content={cartProducts && cartProducts.length}
                  color="secondary">
             {
               this.isNull() ?
@@ -127,7 +127,7 @@ class CartMenu extends React.Component {
           classes={{ paper: classes.profileMenu }}
           disableAutoFocusItem>
           <div className={classes.profileMenuUser}>
-            <Typography variant="h4" weight="medium">
+            <Typography variant="h5" weight="medium">
               Carrito de productos
             </Typography>
             {this.renderItemsCount()}

@@ -18,6 +18,9 @@ class SessionManager extends React.Component {
         this.props.actions.setCartProducts(products);
         this.props.actions.setCartData(rest);
       })
+      .catch(r => {
+
+      })
   }
 
 }
