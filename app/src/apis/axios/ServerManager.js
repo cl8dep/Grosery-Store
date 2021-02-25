@@ -56,6 +56,10 @@ class ServerManager {
   async forgetPassword(email) {
 
   }
+
+  async googleAuth(data) {
+    return await this.axios.post("/auth/google", data)
+  }
 }
 
 export default ServerManager;

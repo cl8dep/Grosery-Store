@@ -9,6 +9,7 @@ declare global {
       DATABASE_USER: string;
       DATABASE_PASSWORD: string;
       DATABASE_NAME: string;
+      GOOGLE_CLIENT_ID: string;
     }
   }
 }

@@ -11,13 +11,19 @@ export default class SignUpDto {
   lastName: string;
 
   @IsNotEmpty()
-  @ApiProperty()
-  password: string;
-
-  @IsNotEmpty()
   @IsEmail()
   @ApiProperty()
   email: string;
+
+  @IsNotEmpty()
+  @IsOptional()
+  @ApiProperty()
+  password?: string;
+
+  @IsNotEmpty()
+  @IsOptional()
+  @ApiProperty()
+  picture?: string;
 
   @IsNotEmpty()
   @IsOptional()

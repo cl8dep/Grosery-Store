@@ -11,6 +11,7 @@ import useStyles from "./styles";
 
 import { useServerManager } from '../../components/ServerManagerProvider';
 import { Link } from 'react-router-dom';
+import GoogleButton from '../../components/Google';
 
 function SignIn(props) {
   const classes = useStyles();
@@ -118,10 +119,8 @@ function SignIn(props) {
             <Typography className={classes.formDividerWord}>or</Typography>
             <div className={classes.formDivider} />
           </div>
-          <Button size="large" className={classes.googleButton}>
-            <img src="/img/google.svg" alt="google" className={classes.googleIcon} />
-            &nbsp;Sign in with Google
-          </Button>
+
+          <GoogleButton/>
 
           <div className={classes.formButtons}>
             <Button component={Link} to="/forget-password"

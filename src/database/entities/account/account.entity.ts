@@ -35,7 +35,10 @@ class Account implements IJwtAccountData {
   lastName: string;
 
   @Column()
-  password: string;
+  picture?: string;
+
+  @Column()
+  password?: string;
 
   @Column({ unique: true })
   email: string;

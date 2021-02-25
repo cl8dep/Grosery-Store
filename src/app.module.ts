@@ -17,6 +17,7 @@ import CartController from './controllers/cart.controller';
 import ProductCartModule from './database/entities/product-cart/product-cart.module';
 import { join } from 'path';
 import SettingsController from './controllers/settings.controller';
+import AuthController from './controllers/auth.controller';
 
 @Module({
   imports: [
@@ -31,7 +32,7 @@ import SettingsController from './controllers/settings.controller';
     ProductCartModule,
 
   ],
-  controllers: [AccountController, ProductsController, CartController, SettingsController],
+  controllers: [AccountController, ProductsController, CartController, SettingsController, AuthController],
   providers: [],
 })
 export class AppModule implements NestModule {

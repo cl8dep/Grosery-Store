@@ -36,6 +36,7 @@
     "class-transformer": "^0.3.2",
     "class-validator": "latest",
     "cookie-parser": "^1.4.5",
+    "google-auth-library": "^7.0.2",
     "helmet": "^4.4.1",
     "mysql": "^2.18.1",
     "passport": "^0.4.1",

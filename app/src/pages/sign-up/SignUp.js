@@ -10,6 +10,7 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 
 import useStyles from "./styles";
+import GoogleButton from '../../components/Google';
 
 function SignUp(props) {
   const classes = useStyles();
@@ -44,6 +45,10 @@ function SignUp(props) {
           setIsLoading(false);
         })
     }
+  };
+
+  const onGoogleSuccess = (data) => {
+    console.log(data)
   };
 
   const settings = props.settings;
@@ -171,12 +176,10 @@ function SignUp(props) {
                 <Typography className={classes.formDividerWord}>or</Typography>
                 <div className={classes.formDivider} />
               </div>
-              <Button
-                size="large"
-                className={classes.googleButton}>
-                <img src="/img/google.svg" alt="google" className={classes.googleIcon} />
-                &nbsp;Sign up with Google
-              </Button>
+              <GoogleButton onSuccess={onGoogleSuccess}
+                            createAccount={true}>
+
+              </GoogleButton>
             </React.Fragment>
           }
 
