@@ -20,14 +20,14 @@ import { join } from 'path';
 @Module({
   imports: [
     ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
+      rootPath: join(__dirname, '..', "app", "build"),
     }),
     DatabaseModule,
     AuthModule,
     ServicesModule,
     AccountModule,
     ProductModule,
-    ProductCartModule
+    ProductCartModule,
   ],
   controllers: [AccountController, ProductsController, CartController],
   providers: [],
