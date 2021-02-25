@@ -30,8 +30,7 @@
     "redux": "^4.0.5",
     "reselect": "^4.0.0",
     "tinycolor2": "^1.4.2",
-    "universal-cookie": "^4.0.4",
-    "mv": "^2.1.1"
+    "universal-cookie": "^4.0.4"
   },
   "devDependencies": {
     "@types/classnames": "^2.2.11",

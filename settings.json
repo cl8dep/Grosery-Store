@@ -1,0 +1,10 @@
+{
+  "signUp": {
+    "enabled": false,
+    "enabledGoogleSignUp": true
+  },
+  "signIn": {
+    "enabled": true,
+    "enabledGoogleSignUp": false
+  }
+}

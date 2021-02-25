@@ -6,6 +6,7 @@ import SessionManager from './SessionManager';
 import { withServerManager } from '../ServerManagerProvider/ServerManagerProvider';
 import { setCartData, setCartProducts } from '../../apis/redux/cart/cart.actions';
 import { selectAccountData } from '../../apis/redux/auth/auth.selectors';
+import { setSettings } from '../../apis/redux/settings/settings.actions';
 
 const mapStateToProps = state => ({
   auth: selectAccountData(state)
@@ -14,7 +15,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({
     setCartProducts,
-    setCartData
+    setCartData,
+    setSettings
   }, dispatch)
 });
 

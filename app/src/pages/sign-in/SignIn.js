@@ -4,14 +4,13 @@ import {
   CircularProgress,
   Typography,
   Button,
-  TextField,
-} from "@material-ui/core";
+  TextField, Fade,
+} from '@material-ui/core';
 
 import useStyles from "./styles";
 
-import logo from "./logo.svg";
-import google from "../../images/google.svg";
 import { useServerManager } from '../../components/ServerManagerProvider';
+import { Link } from 'react-router-dom';
 
 function SignIn(props) {
   const classes = useStyles();
@@ -50,23 +49,24 @@ function SignIn(props) {
     <Grid container className={classes.container}>
       <div className={classes.logotypeContainer}>
         <div className={classes.backDrop}/>
-        <img src={logo} alt="logo" className={classes.logotypeImage} />
+        <img src="/img/logo.svg" alt="logo" className={classes.logotypeImage} />
         <Typography className={classes.logotypeText}>Groceries Store</Typography>
       </div>
       <div className={classes.formContainer}>
         <div className={classes.form}>
           <Typography variant="h3" className={classes.greeting}>
-            Sign in to Groceries Store
+            Welcome!
           </Typography>
-          <Button size="large" className={classes.googleButton}>
-            <img src={google} alt="google" className={classes.googleIcon} />
-            &nbsp;Sign in with Google
-          </Button>
-          <div className={classes.formDividerContainer}>
-            <div className={classes.formDivider} />
-            <Typography className={classes.formDividerWord}>or</Typography>
-            <div className={classes.formDivider} />
-          </div>
+          <Typography variant="h5" className={classes.subGreeting}>
+            Enter your credentials to sign in to our store
+          </Typography>
+          {(error) &&
+          <Fade in={true}>
+            <Typography color="error">
+              {error}
+            </Typography>
+          </Fade>
+          }
           <TextField
             id="email"
             InputProps={{
@@ -96,25 +96,45 @@ function SignIn(props) {
             autoComplete="current-password"
             type="password"
             fullWidth/>
+
           <div className={classes.formButtons}>
             {isLoading ? (
               <CircularProgress size={26} className={classes.loginLoader} />
             ) : (
               <Button onClick={() => performRequest()}
-                disabled={
-                  email.length === 0 || password.length === 0
-                }
-                variant="contained"
-                color="primary"
-                size="large">
+                      disabled={
+                        email.length === 0 || password.length === 0
+                      }
+                      variant="contained"
+                      color="primary"
+                      size="large" fullWidth>
                 Sign in
               </Button>
             )}
-            <Button
+          </div>
+
+          <div className={classes.formDividerContainer}>
+            <div className={classes.formDivider} />
+            <Typography className={classes.formDividerWord}>or</Typography>
+            <div className={classes.formDivider} />
+          </div>
+          <Button size="large" className={classes.googleButton}>
+            <img src="/img/google.svg" alt="google" className={classes.googleIcon} />
+            &nbsp;Sign in with Google
+          </Button>
+
+          <div className={classes.formButtons}>
+            <Button component={Link} to="/forget-password"
               color="primary"
               size="large"
               className={classes.forgetButton}>
               Forget Password
+            </Button>
+            <Button component={Link} to="/sign-up"
+              color="primary"
+              size="large"
+              className={classes.forgetButton}>
+              Create new account
             </Button>
           </div>
         </div>

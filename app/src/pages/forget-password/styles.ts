@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
+import { Theme } from '@material-ui/core';
 
-export default makeStyles(theme => ({
+export default makeStyles((theme: Theme) => ({
   container: {
     height: "100vh",
     width: "100vw",
@@ -54,10 +55,14 @@ export default makeStyles(theme => ({
     height: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
     alignItems: "center",
+    overflowY: 'auto',
+    paddingTop: '3%',
+    paddingBottom: '5%',
     [theme.breakpoints.down("md")]: {
       width: "50%",
+      overflowY: 'initial !important',
+      paddingBottom: '5%',
     },
   },
   form: {
@@ -69,33 +74,25 @@ export default makeStyles(theme => ({
       borderRadius: '4px'
     },
   },
-  tab: {
-    fontWeight: 400,
-    fontSize: 18,
-  },
   greeting: {
     fontWeight: 500,
     textAlign: "center",
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(2),
   },
   subGreeting: {
-    fontWeight: 500,
     textAlign: "center",
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   googleButton: {
-    marginTop: theme.spacing(6),
-    boxShadow: theme.customShadows.widget,
+    marginTop: 0,
+    boxShadow: theme.shadows[2],
     backgroundColor: "white",
     width: "100%",
     textTransform: "none",
     [theme.breakpoints.down("md")]: {
       boxShadow: theme.shadows[0],
     },
-  },
-  googleButtonCreating: {
-    marginTop: 0,
   },
   googleIcon: {
     width: 30,
@@ -142,7 +139,7 @@ export default makeStyles(theme => ({
     },
   },
   textField: {
-    borderBottomColor: theme.palette.background.light,
+    borderBottomColor: theme.palette.background.paper,
   },
   formButtons: {
     width: "100%",

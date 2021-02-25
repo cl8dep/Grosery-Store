@@ -24,6 +24,7 @@ import AccountRoleDto from '../types/dto/account-role.dto';
 import { User } from '../decorators/user.decorator';
 import { IUser } from '../types/user.interface';
 import BusinessService from '../services/bussines.service';
+import EditAccountDto from '../types/dto/edit-account.dto';
 
 @ApiTags('Account')
 @Controller('account')
@@ -96,6 +97,14 @@ class AccountController {
   @Get('recover-account')
   recoverAccount(@Param('id') id: string) {
     //return this.accountService.findOne(id);
+  }
+
+  @ApiBearerAuth()
+  @Post()
+  async editAccount(@Body() body: EditAccountDto, @User() user: IUser, @Res() res: Response) {
+    const editedAccount = await this.businessService.editAccount(body, user.id);
+    const {id, password, ...rest} = editedAccount;
+    return res.status(200).json(rest);
   }
 
   @ApiBearerAuth()

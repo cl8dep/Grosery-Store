@@ -3,9 +3,9 @@ import AccountStatus from '../../bussines/AccountStatus';
 import { AccountRole } from '../../bussines/AccountRole';
 
 enum AuthActionTypes  {
-  SET_AUTH_DATA,
-  SIGN_OUT,
-  REFRESH_AUTH_STATE,
+  SET_AUTH_DATA = "SET_AUTH_DATA",
+  SIGN_OUT = "SIGN_OUT",
+  REFRESH_AUTH_STATE = "REFRESH_AUTH_STATE",
 }
 
 

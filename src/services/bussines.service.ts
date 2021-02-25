@@ -9,6 +9,7 @@ import Cart from '../database/entities/cart/cart.entity';
 import { ProductCartService } from '../database/entities/product-cart/product-cart.service';
 import RemoveProductFromCart from '../types/dto/remove-product-from-cart.dto';
 import ProductCart from '../database/entities/product-cart/product-cart.entity';
+import EditAccountDto from '../types/dto/edit-account.dto';
 
 @Injectable()
 class BusinessService {
@@ -91,6 +92,15 @@ class BusinessService {
       subtotal += (item.quantity * item.product.price)
     });
     return subtotal
+  }
+
+  async editAccount(body: EditAccountDto, id: string) {
+    const account = await this.accountService.findOneById(id);
+    account.firstName = body.firstName ? body.firstName : account.firstName;
+    account.lastName = body.lastName ? body.lastName : account.lastName;
+    account.cellphone = body.cellphone ? body.cellphone : account.cellphone;
+    account.address = body.address ? body.address : account.address;
+    return await this.accountService.save(account);
   }
 }
 

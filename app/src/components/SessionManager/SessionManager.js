@@ -11,7 +11,12 @@ class SessionManager extends React.Component {
   }
 
   componentDidMount() {
-    this.props.serverManager.getCartProducts()
+    this.props.serverManager.getSettings()
+      .then(r => {
+        const {data} = r;
+        this.props.actions.setSettings(data);
+      });
+    /*this.props.serverManager.getCartProducts()
       .then(r => {
         const {data} = r;
         const {products, ...rest} = data;
@@ -20,7 +25,7 @@ class SessionManager extends React.Component {
       })
       .catch(r => {
 
-      })
+      })*/
   }
 
 }

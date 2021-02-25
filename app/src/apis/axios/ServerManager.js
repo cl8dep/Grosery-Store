@@ -19,7 +19,7 @@ class ServerManager {
     this.axios.interceptors.response.use(response => {
       return response;
     }, error => {
-      if (error.response.status === 401) {
+      if (error.response?.status === 401) {
         window.clearAuthData();
       }
       return error;
@@ -47,6 +47,14 @@ class ServerManager {
 
   async getCartProducts() {
     return await this.axios.get("/cart")
+  }
+
+  async getSettings() {
+    return await this.axios.get("/settings")
+  }
+
+  async forgetPassword(email) {
+
   }
 }
 

@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
+import { Theme } from '@material-ui/core';
 
-export default makeStyles(theme => ({
+export default makeStyles((theme: Theme) => ({
   container: {
     height: "100vh",
     width: "100vw",
@@ -72,7 +73,6 @@ export default makeStyles(theme => ({
       backgroundColor: theme.palette.background.paper,
       borderRadius: '4px'
     },
-
   },
   greeting: {
     fontWeight: 500,
@@ -97,6 +97,17 @@ export default makeStyles(theme => ({
   googleIcon: {
     width: 30,
     marginRight: theme.spacing(2),
+  },
+  creatingButtonContainer: {
+    marginTop: theme.spacing(2.5),
+    height: 46,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  createAccountButton: {
+    height: 46,
+    textTransform: "none",
   },
   formDividerContainer: {
     marginTop: theme.spacing(4),
@@ -128,7 +139,7 @@ export default makeStyles(theme => ({
     },
   },
   textField: {
-    borderBottomColor: theme.palette.background.light,
+    borderBottomColor: theme.palette.background.paper,
   },
   formButtons: {
     width: "100%",

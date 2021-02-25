@@ -18,6 +18,7 @@ import store from './apis/redux';
 import AuthRoute from './apis/routes/AuthRoute';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ForgetPassword from './pages/forget-password';
 
 
 export default function App() {
@@ -40,6 +41,7 @@ export default function App() {
                 <PrivateRoute path="/app" component={Layout} />
                 <AuthRoute path="/sign-in" component={SignIn} />
                 <AuthRoute path="/sign-up" component={SignUp} />
+                <AuthRoute path="/forget-password" component={ForgetPassword} />
                 <Route component={Error} />
               </Switch>
             </BrowserRouter>
