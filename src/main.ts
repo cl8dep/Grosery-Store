@@ -3,16 +3,14 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import * as helmet from 'helmet';
+import {join} from 'path'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-require('dotenv').config();
+require('dotenv').config({path: join(__dirname, "..", ".env.production")});
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.enableCors({
-
-  });
+  app.enableCors();
   app.use(helmet());
   app.useGlobalPipes(new ValidationPipe());
 
@@ -26,4 +24,5 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT || 4000);
 }
+
 bootstrap();
