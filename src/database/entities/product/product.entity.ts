@@ -24,6 +24,6 @@ export class Product {
   @Column({ default: ProductUnit.Kg })
   unit: ProductUnit;
 
-  @Column({ type: 'datetime' })
+  @Column({ type: 'date' })
   lastFill: string;
 }

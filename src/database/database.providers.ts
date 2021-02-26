@@ -1,33 +1,18 @@
-import { createConnection } from 'typeorm';
+import { createConnection, getConnectionOptions } from 'typeorm';
 
 export const databaseProviders = [
   {
     provide: 'DATABASE_CONNECTION',
     useFactory: async () => {
-      if (process.env.DATABASE_TYPE === 'postgres')
-        return await createConnection({
-          type: 'postgres',
-          host: process.env.DATABASE_HOST || 'localhost',
-          port: parseInt(process.env.DATABASE_PORT) || 3306,
-          username: process.env.DATABASE_USER || 'root',
-          password: process.env.DATABASE_PASSWORD || 'FrodoDobi001221*',
-          database: process.env.DATABASE_NAME || 'grocery-app',
-          entities: [__dirname + '/entities/**/*.entity{.ts,.js}'],
-          synchronize: true,
-        });
+      let connectionOptions;
+      if (process.env.NODE_ENV === "production")
+        connectionOptions =  await getConnectionOptions("heroku-postgres");
       else
-        return await createConnection({
-          type: 'mysql',
-          host: process.env.DATABASE_HOST || 'localhost',
-          port: parseInt(process.env.DATABASE_PORT) || 3306,
-          username: process.env.DATABASE_USER || 'root',
-          password: process.env.DATABASE_PASSWORD || 'FrodoDobi001221*',
-          database: process.env.DATABASE_NAME || 'grocery-app',
-          entities: [__dirname + '/entities/**/*.entity{.ts,.js}'],
-          synchronize: true,
-        });
-
+        connectionOptions =  await getConnectionOptions();
+      return await createConnection({
+        ...connectionOptions,
+        entities: [__dirname + '/entities/**/*.entity{.ts,.js}']
+      });
     }
-
   },
 ];
