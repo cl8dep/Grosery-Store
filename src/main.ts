@@ -5,7 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import * as helmet from 'helmet';
 import {join} from 'path'
 
-require('dotenv').config({path: join(__dirname, "..", ".env.production")});
+require('dotenv').config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
