@@ -17,6 +17,9 @@
     "username": "hmsysdrqvmmsvc",
     "password": "a2f75bee8878a67c2d4dc7a00e9e601d17f2eb57d704cd9e5fe7e1e1771b2e11",
     "database": "d15iemokgrrkdg",
+    "ssl": {
+      "rejectUnauthorized": false
+    },
     "synchronize": true
   }
 ]
